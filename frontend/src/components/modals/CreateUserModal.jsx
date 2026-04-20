@@ -29,7 +29,8 @@ function CreateUserModal({ addUser }) {
 
     try {
       //post req to server
-      const res = await axios.post(import.meta.env.VITE_API_URL, {
+      const BASE_URL = import.meta.env.VITE_API_URL;
+      const res = await axios.post(BASE_URL + "/",{
         name,
         email
       });

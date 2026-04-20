@@ -23,7 +23,8 @@ function Table() {
 
     const fetchUsers = async () => {
       try {
-        const response = await axios.get(import.meta.env.VITE_API_URL);
+        const BASE_URL = import.meta.env.VITE_API_URL;
+        axios.get(BASE_URL + "/users");
         //setting the empty array as a json object of users got from the server
         setUsers(response.data);
 

@@ -34,7 +34,8 @@ function EditUserModal() {
     }
     try {
       //put req to server
-      const res = await axios.put(import.meta.env.VITE_API_URL, {
+      const BASE_URL = import.meta.env.VITE_API_URL;
+      const res = await axios.put(BASE_URL + "/", {
         id,
         name,
         email

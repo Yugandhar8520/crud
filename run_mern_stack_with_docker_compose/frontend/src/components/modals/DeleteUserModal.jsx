@@ -22,11 +22,13 @@ function DeleteUserModal() {
     }
     try {
       //delete req to the server with data payload
-      const res = await axios.request({
-        method: "delete",
-        url: import.meta.env.VITE_API_URL,
-        data: { id }
-      });
+    const BASE_URL = import.meta.env.VITE_API_URL;
+
+    const res = await axios.request({
+    method: "delete",
+    url: BASE_URL + "/users",
+    data: { id }
+});
 
       //incase of success
       if (res.status === 200) {

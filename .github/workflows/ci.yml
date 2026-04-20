@@ -91,3 +91,33 @@ jobs:
         run: |
           docker push ${{ secrets.DOCKER_USERNAME }}/frontend:latest
           docker push ${{ secrets.DOCKER_USERNAME }}/frontend:${{ github.sha }}
+
+          deploy:
+    needs: build-and-push
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Deploy to EC2 via SSH
+        uses: appleboy/ssh-action@v1.0.0
+        with:
+          host: ${{ secrets.EC2_HOST }}
+          username: ${{ secrets.EC2_USER }}
+          key: ${{ secrets.EC2_SSH_KEY }}
+          script: |
+            docker pull ${{ secrets.DOCKER_USERNAME }}/backend:latest
+            docker pull ${{ secrets.DOCKER_USERNAME }}/frontend:latest
+
+            docker rm -f backend-container || true
+            docker rm -f frontend-container || true
+
+            docker run -d -p 5000:5000 \
+              --name backend-container \
+              -e DB_HOST=database-1.cluuw2gc0stc.eu-north-1.rds.amazonaws.com \
+              -e DB_USER=admin \
+              -e DB_PASSWORD=atKSzzsiUlMy73lSVscc \
+              -e DB_DATABASE=crud \
+              ${{ secrets.DOCKER_USERNAME }}/backend:latest
+
+            docker run -d -p 80:80 \
+              --name frontend-container \
+              ${{ secrets.DOCKER_USERNAME }}/frontend:latest  

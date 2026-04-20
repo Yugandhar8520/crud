@@ -29,11 +29,10 @@ function CreateUserModal({ addUser }) {
 
     try {
       //post req to server
-      const res = await axios.post(import.meta.env.VITE_API_URL, {
-        name,
-        email
-      });
-
+      const res = await axios.post(BASE_URL + "/users", {
+      name,
+      email
+    });
       //incase of success
       if (res.status === 201) {
         toast.success("User Created");

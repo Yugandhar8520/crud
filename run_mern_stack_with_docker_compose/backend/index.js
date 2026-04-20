@@ -28,10 +28,11 @@ let pool;
     });
 
     // use the router
-    app.use("/", router);
+ app.use("/api", router);
 
     // start the server
     app.listen(3000, '0.0.0.0', () => {
         console.log(`Example app listening on port http://localhost:${port}`);
+        console.log("changes")
     });
 })();

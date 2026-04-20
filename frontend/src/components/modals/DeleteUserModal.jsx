@@ -24,7 +24,7 @@ function DeleteUserModal() {
       //delete req to the server with data payload
       const res = await axios.request({
         method: "delete",
-        url: import.meta.env.VITE_API_URL,
+        url: import.meta.env.BASE_URL,
         data: { id }
       });
 

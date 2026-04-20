@@ -3,8 +3,10 @@ const express = require("express")
 const router = express.Router()
 
 //this get function sends all the results to the client stored in the database as a json object
-router.get('/', async (req, res) => {
+console.log("came to routes")
+router.get('/getusers', async (req, res) => {
     try {
+        console.log("came to this api")
         const [results] = await req.pool.query(`SELECT * FROM ${process.env.DB_TABLENAME}`);
         res.json(results);
     } catch (error) {
@@ -15,7 +17,7 @@ router.get('/', async (req, res) => {
 })
 
 //this function checks if all the fields are filled, then checks if the user already exists then inserts the data from req.body into the database and also sends the created user to the user as a json object
-router.post("/", async (req, res) => {
+router.post("/alreadyexists", async (req, res) => {
     const { name, email } = req.body;
 
     // check if name or email is missing or empty
@@ -43,7 +45,7 @@ router.post("/", async (req, res) => {
 });
 
 //this function updates a already created user in database by taking a id, name and email. id is used to find the user and we use the given name and email to create changes for that id's previously created name and email
-router.put("/", async (req, res) => {
+router.put("/v1", async (req, res) => {
     const { id, name, email } = req.body;
 
     //check if the id exists in the database
@@ -73,7 +75,7 @@ router.put("/", async (req, res) => {
 })
 
 //this function deletes a user from the database by only taking the id for the user as input from req.body
-router.delete("/", async (req, res) => {
+router.delete("/v3", async (req, res) => {
     const { id } = req.body;
 
     //check if the id exists in the database
