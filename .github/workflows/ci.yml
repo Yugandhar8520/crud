@@ -115,7 +115,8 @@ jobs:
               -e DB_HOST=database-1.cluuw2gc0stc.eu-north-1.rds.amazonaws.com \
               -e DB_USER=admin \
               -e DB_PASSWORD=${{ secrets.DB_PASSWORD }} \
-              -e DB_DATABASE=crud \
+              -e DB_NAME=crud \
+              -e DB_TABLENAME=undefined \
               ${{ secrets.DOCKER_USERNAME }}/backend:latest
 
             docker run -d -p 80:80 \
