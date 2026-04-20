@@ -92,7 +92,7 @@ jobs:
           docker push ${{ secrets.DOCKER_USERNAME }}/frontend:latest
           docker push ${{ secrets.DOCKER_USERNAME }}/frontend:${{ github.sha }}
 
-          deploy:
+  deploy:
     needs: build-and-push
     runs-on: ubuntu-latest
 
@@ -114,10 +114,10 @@ jobs:
               --name backend-container \
               -e DB_HOST=database-1.cluuw2gc0stc.eu-north-1.rds.amazonaws.com \
               -e DB_USER=admin \
-              -e DB_PASSWORD=atKSzzsiUlMy73lSVscc \
+              -e DB_PASSWORD=${{ secrets.DB_PASSWORD }} \
               -e DB_DATABASE=crud \
               ${{ secrets.DOCKER_USERNAME }}/backend:latest
 
             docker run -d -p 80:80 \
               --name frontend-container \
-              ${{ secrets.DOCKER_USERNAME }}/frontend:latest  
+              ${{ secrets.DOCKER_USERNAME }}/frontend:latest 
