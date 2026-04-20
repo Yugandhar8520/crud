@@ -116,7 +116,7 @@ jobs:
               -e DB_USER=admin \
               -e DB_PASSWORD=${{ secrets.DB_PASSWORD }} \
               -e DB_NAME=crud \
-              -e DB_TABLENAME=undefined \
+              -e DB_TABLENAME=users\
               ${{ secrets.DOCKER_USERNAME }}/backend:latest
 
             docker run -d -p 80:80 \
